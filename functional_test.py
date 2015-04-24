@@ -17,7 +17,9 @@ class NewVisitorTest(unittest.TestCase):
 
         #He notice the page title and header mention the to-do list
         self.assertIn("To-Do",self.browser.title)
-        self.fail("Finish the test!")
+        header_text = self.browser.find-element_by_tag('h1').text
+        self.assertIn('To-Do',header_text)
+        #self.fail("Finish the test!")
         #He is invited to enter a to-do list straight away
 
         #he types "Buy bloodborne" in to a text box
