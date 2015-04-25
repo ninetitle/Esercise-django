@@ -24,17 +24,19 @@ class NewVisitorTest(unittest.TestCase):
         #He is invited to enter a to-do list straight away
         imputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
+            imputbox.get_attribute('placeholder'),
             'enter a To-Do item'
         )
         #he types "Buy bloodborne" in to a text box
-        inputbox.send_keys('Buy Bloodborne')
+        imputbox.send_keys('Buy Bloodborne')
 
         #when he hit enter, the page updates, and now the page list "1:         buy Bloodborne"
-        inputbox.send_keys(keys.ENTER)
+        imputbox.send_keys(Keys.ENTER)
         table = self.browser.find_element_by_id('id_list_table')
+        rows= self.browser.find_elements_by_tag_name('<tr>')
         self.assertTrue(
-            any(row.text == '1. Buy Bloodborne') for row in rows
+            any(row.text == '1. Buy Bloodborne' for row in rows),
+            "New to-do items do not appear on the table"
         )
         #there still is a text box initing him to add another item
         #he enter "Play Bloodborne on ps4"
