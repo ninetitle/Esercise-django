@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -17,22 +18,32 @@ class NewVisitorTest(unittest.TestCase):
 
         #He notice the page title and header mention the to-do list
         self.assertIn("To-Do",self.browser.title)
-        header_text = self.browser.find-element_by_tag('h1').text
+        header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do',header_text)
-        #self.fail("Finish the test!")
+        
         #He is invited to enter a to-do list straight away
-
+        imputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'enter a To-Do item'
+        )
         #he types "Buy bloodborne" in to a text box
+        inputbox.send_keys('Buy Bloodborne')
 
-        #when he hit enter, the page updates, and now the page list "1: buy             Bloodborne"
-
+        #when he hit enter, the page updates, and now the page list "1:         buy Bloodborne"
+        inputbox.send_keys(keys.ENTER)
+        table = self.browser.find_element_by_id('id_list_table')
+        self.assertTrue(
+            any(row.text == '1. Buy Bloodborne') for row in rows
+        )
         #there still is a text box initing him to add another item
         #he enter "Play Bloodborne on ps4"
 
         #the page update again, and now there are both item on the list
 
         #Marci wonder if the site will remember the list for him
-        #Then he sees that the site had generated an unique url for him--- there 
+        #Then he sees that the site had generated an unique url for             him--- there 
+        self.fail('finish the test !')
         #is some explanatory text to that effect
 
         #he visit that url, and the list is still there
