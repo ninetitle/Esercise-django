@@ -40,7 +40,7 @@ class NewVisitorTest(LiveServerTestCase):
         #when he hit enter, he is taken to another page with the list "1:buy Bloodborne"
         imputbox.send_keys(Keys.ENTER)
         marci_list_url = self.browser.current_url
-        self.assertRegex(marci_list_url,'/lists/.+')
+        self.assertRegexpMatches(marci_list_url,'/lists/.+')
         self.check_for_row_in_list_table('1. Buy Bloodborne')
         
         #there still is a text box initing him to add another item
@@ -65,13 +65,13 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn('Play Bloodborn on ps4',page_test)
         
         #Francesco inizia una nuova lista inserendo un nuovo oggetto
-        #è meno interessante di quella di Marci
+        #e' meno interessante di quella di Marci
         inputbox= self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         
         #Francesco get his own unique url
-        self.assertRegex(Francesco_list_url,'/lists/.+')
+        self.assertRegexpMatches(Francesco_list_url,'/lists/.+')
         selfAssertNotEqual(Marci_list_url, Francesco_list_url)
         
         #again, no trace of Marci list
