@@ -39,8 +39,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         #when he hit enter, he is taken to another page with the list "1:buy Bloodborne"
         imputbox.send_keys(Keys.ENTER)
-        marci_list_url = self.browser.current_url
-        self.assertRegexpMatches(marci_list_url,'/lists/.+')
+        Marci_list_url = self.browser.current_url
+        self.assertRegexpMatches(Marci_list_url,'/lists/.+')
         self.check_for_row_in_list_table('1. Buy Bloodborne')
         
         #there still is a text box initing him to add another item
@@ -59,10 +59,10 @@ class NewVisitorTest(LiveServerTestCase):
         
         #Fancesco visit the home page, there is no trace of
         #Marci's list
-        self.browse.get(self.live_server_url)
+        self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('Buy Bloodborne',page_test)
-        self.assertNotIn('Play Bloodborn on ps4',page_test)
+        self.assertNotIn('Buy Bloodborne',page_text)
+        self.assertNotIn('Play Bloodborn on ps4',page_text)
         
         #Francesco inizia una nuova lista inserendo un nuovo oggetto
         #e' meno interessante di quella di Marci
@@ -71,8 +71,9 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         
         #Francesco get his own unique url
+        Francesco_list_url = self.browser.current_url
         self.assertRegexpMatches(Francesco_list_url,'/lists/.+')
-        selfAssertNotEqual(Marci_list_url, Francesco_list_url)
+        self.assertNotEqual(Marci_list_url, Francesco_list_url)
         
         #again, no trace of Marci list
         page_text = self.browser.find_element_by_tag_name('body').text
