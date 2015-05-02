@@ -77,8 +77,8 @@ class NewVisitorTest(LiveServerTestCase):
         
         #again, no trace of Marci list
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('Buy Bloodborne',page_test)
-        self.assertIn('Buy milk',page_test)
+        self.assertNotIn('Buy Bloodborne',page_text)
+        self.assertIn('Buy milk',page_text)
         
         #Marci wonder if the site will remember the list for him
         #Then he sees that the site had generated an unique url for             him--- there 
