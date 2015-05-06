@@ -22,9 +22,9 @@ SECRET_KEY = 'hl9$u@8s3$-+7-6gge^z_=5whj0qmw=g0==^4(717g6u#y=-zg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['marci-staging-tk']
 
 
 # Application definition
