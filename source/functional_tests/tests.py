@@ -16,7 +16,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(cls):
         if cls.server == cls.live_server_url :
-            super().TearDown()
+            super().TearDownClass()
         
 
     def setUp(self):
