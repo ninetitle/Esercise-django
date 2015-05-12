@@ -21,15 +21,13 @@ def new_list(request):
         
     return redirect('/lists/%d/'%(lista.id,))
 
-def add_item(request,list_id):
-    lista = List.objects.get(id=list_id)
-    Item.objects.create(text = request.POST['item_text'], list = lista )
-    return redirect('/lists/%d/'%(lista.id,))   
-
 #def view_list(request,list_id):
 #    lista = List.objects.get(id=list_id)
 #    return render(request, 'list.html', {'list': lista})
 
 def view_list(request, list_id):
-    list_ = List.objects.get(id=list_id)
-    return render(request, 'list.html', {'list': list_})
+    lista = List.objects.get(id=list_id)
+    if request.method == 'POST':
+        Item.objects.create(text = request.POST['item_text'], list = lista )
+        return redirect('/lists/%d/'%(lista.id,)) 
+    return render(request, 'list.html', {'list': lista})

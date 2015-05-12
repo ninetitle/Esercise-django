@@ -59,6 +59,7 @@ class NewListTest(TestCase):
         new_item = Item.objects.first()
         self.assertEqual(new_item.text, 'A new list item')
     
+    
     def test_page_redirect_after_post(self):
         response = self.client.post(
             '/lists/new',
@@ -67,6 +68,7 @@ class NewListTest(TestCase):
         new_list = List.objects.first()
         self.assertRedirects(response ,'/lists/%d/'%(new_list.id,))
         
+    
     def test_validation_error_are_sent_back_to_home_page_template(self):
         response = self.client.post('/lists/new', data = {'item_text':''})
         self.assertEqual(response.status_code, 200)
@@ -74,19 +76,19 @@ class NewListTest(TestCase):
         expected_error = escape("You can't have an empty list item")
         self.assertContains(response,expected_error)
 
+    
     def test_invalid_list_items_arent_saved(self):
         response = self.client.post('/lists/new', data = {'item_text':''})
         self.assertEqual(List.objects.count(),0)
         self.assertEqual(Item.objects.count(),0)
         
-class NewItemTest(TestCase):
     
     def test_can_save_a_post_request_to_an_existing_list(self):
         other_list = List.objects.create()
         correct_list = List.objects.create()
         
         self.client.post(
-            '/lists/%d/add_item' %(correct_list.id,),
+            '/lists/%d/' %(correct_list.id,),
             data={'item_text': 'A new item for an existing list'}
             )
         
@@ -95,14 +97,18 @@ class NewItemTest(TestCase):
         self.assertEqual(new_item.text,'A new item for an existing list')
         self.assertEqual(new_item.list,correct_list)
         
-    def test_redirect_to_list_view(self):
+    
+    def test_POST_redirect_to_list_view(self):
         other_list = List.objects.create()
         correct_list = List.objects.create()  
         
         response =self.client.post(
-            '/lists/%d/add_item' %(correct_list.id,),
+            '/lists/%d/' %(correct_list.id,),
             data={'item_text': 'A new item for an existing list'}
             )
         
         self.assertRedirects(response,'/lists/%d/' %(correct_list.id,))
+        
+    
+
         
