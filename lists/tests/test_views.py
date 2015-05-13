@@ -75,6 +75,15 @@ class NewListTest(TestCase):
         self.assertTemplateUsed(response, 'home.html')
         expected_error = escape("You can't have an empty list item")
         self.assertContains(response,expected_error)
+        
+    def test_validation_errors_end_up_on_lists_page(self):
+        lista = List.objects.create()
+        response = self.client.post('/lists/%d/' %(lista.id),
+                    data = {'item_text':''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'list.html')
+        expected_error = escape("You can't have an empty list item")
+        self.assertContains(response,expected_error)
 
     
     def test_invalid_list_items_arent_saved(self):

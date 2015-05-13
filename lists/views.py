@@ -27,7 +27,13 @@ def new_list(request):
 
 def view_list(request, list_id):
     lista = List.objects.get(id=list_id)
+    error = None
     if request.method == 'POST':
-        Item.objects.create(text = request.POST['item_text'], list = lista )
-        return redirect('/lists/%d/'%(lista.id,)) 
-    return render(request, 'list.html', {'list': lista})
+        try:
+            item = Item.objects.create(text = request.POST['item_text'], list = lista )
+            item.full_clean()
+            item.save()
+            return redirect('/lists/%d/'%(lista.id,)) 
+        except:
+            error = "You can't have an empty list item"
+    return render(request, 'list.html', {'list': lista,'error': error})
