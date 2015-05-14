@@ -30,7 +30,7 @@ def view_list(request, list_id):
     error = None
     if request.method == 'POST':
         try:
-            item = Item.objects.create(text = request.POST['item_text'], list = lista )
+            item = Item(text = request.POST['item_text'], list = lista )
             item.full_clean()
             item.save()
             return redirect('/lists/%d/'%(lista.id,)) 
