@@ -19,7 +19,7 @@ def new_list(request):
         error = "You can't have an empty list item"
         return render(request,'home.html',{'error': error})
         
-    return redirect('/lists/%d/'%(lista.id,))
+    return redirect(lista) #use the get_absolute_url function automatically
 
 #def view_list(request,list_id):
 #    lista = List.objects.get(id=list_id)
@@ -33,7 +33,7 @@ def view_list(request, list_id):
             item = Item(text = request.POST['item_text'], list = lista )
             item.full_clean()
             item.save()
-            return redirect('/lists/%d/'%(lista.id,)) 
+            return redirect(lista)
         except:
             error = "You can't have an empty list item"
     return render(request, 'list.html', {'list': lista,'error': error})
