@@ -21,4 +21,7 @@ class functionalTest(StaticLiveServerTestCase):
     def inserisci_textbox(self,box,text):
             name = self.browser.find_element_by_id(box)
             name.send_keys(text)
+            
+    def get_item_input_box(self):
+        return self.browser.find_element_by_id('id_text')
 
