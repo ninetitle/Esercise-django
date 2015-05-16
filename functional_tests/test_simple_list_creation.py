@@ -32,7 +32,7 @@ class newVisitorTest(functionalTest):
 
         #there still is a text box initing him to add another item
         #he enter "Play Bloodborne on ps4"
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.browser.find_element_by_id('id_text')
         inputbox.send_keys('Play Bloodborne on ps4')
         inputbox.send_keys(Keys.ENTER)
         #the page update again, and now there are both item on the list
@@ -54,7 +54,7 @@ class newVisitorTest(functionalTest):
         
         #Francesco inizia una nuova lista inserendo un nuovo oggetto
         #e' meno interessante di quella di Marci
-        inputbox= self.browser.find_element_by_id('id_new_item')
+        inputbox= self.browser.find_element_by_id('id_text')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         

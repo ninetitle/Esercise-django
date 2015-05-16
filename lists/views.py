@@ -9,31 +9,22 @@ def home_page(request):
     return render(request,'home.html',{'form' : ItemForm()})
 
 def new_list(request):
-    lista = List.objects.create()
-    item = Item.objects.create(text = request.POST['item_text'], list = lista )
-    try:
-        item.full_clean()
-        item.save()
-    except ValidationError:
-        lista.delete()
-        error = "You can't have an empty list item"
-        return render(request,'home.html',{'error': error})
+    form = ItemForm(data=request.POST) #si passa request.post data al costruttore del form
+    if form.is_valid():                #usiamo .is_valid per determinare se l'inserzione è valida
+        lista = List.objects.create()
+        item = Item.objects.create(text = request.POST['text'], list = lista )
+        return redirect(lista)
+    else:
+        return render(request, 'home.html',{'form' : form}) #in caso di fallimento invece di inserire una stringa di errore passiamo il form al template
         
-    return redirect(lista) #use the get_absolute_url function automatically
 
-#def view_list(request,list_id):
-#    lista = List.objects.get(id=list_id)
-#    return render(request, 'list.html', {'list': lista})
 
 def view_list(request, list_id):
     lista = List.objects.get(id=list_id)
-    error = None
+    form = ItemForm()
     if request.method == 'POST':
-        try:
-            item = Item(text = request.POST['item_text'], list = lista )
-            item.full_clean()
-            item.save()
+        form = ItemForm(data=request.POST)
+        if form.is_valid():
+            item = Item.objects.create(text = request.POST['text'], list = lista )
             return redirect(lista)
-        except:
-            error = "You can't have an empty list item"
-    return render(request, 'list.html', {'list': lista,'error': error})
+    return render(request, 'list.html', {'list': lista, 'form': form})
