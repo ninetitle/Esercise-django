@@ -40,6 +40,7 @@ class ItemModelTest(TestCase):
         item.save()
         self.assertIn(item,lista.item_set.all())
         
+
 class ListModelTest(TestCase):
         def test_get_absolute_url(self):
             lista = List.objects.create()
