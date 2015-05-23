@@ -44,7 +44,7 @@ class itemValidationTest(functionalTest):
         error = self.get_error_element()
         self.assertEqual(error.text, "You have already got this in your list")
         
-    def test_error_messages_are_cleared_on_imput(self):
+    def test_error_messages_are_cleared_on_input(self):
         #Marci start a new list in a way that cause validetion error
         self.browser.get(self.live_server_url)
         self.get_item_input_box().send_keys('\n')
