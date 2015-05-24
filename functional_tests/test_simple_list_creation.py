@@ -7,7 +7,7 @@ class newVisitorTest(functionalTest):
         
         #Marci had heard of a cool new online to-do app.
         #  He goes to check out the homepage
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
 
         #He notice the page title and header mention the to-do list
         self.assertIn("To-Do",self.browser.title)
@@ -47,7 +47,7 @@ class newVisitorTest(functionalTest):
         
         #Fancesco visit the home page, there is no trace of
         #Marci's list
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy Bloodborne',page_text)
         self.assertNotIn('Play Bloodborn on ps4',page_text)
